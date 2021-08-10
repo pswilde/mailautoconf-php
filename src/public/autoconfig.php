@@ -8,6 +8,9 @@ if ($data["path"]) {
   if ($email[0] == "emailaddress") {
     $email = $email[1];
     $email_provided = true;
+    if (Core::$Config["LogonDomain"]) {
+      $email = str_ireplace(Core::$Config["Domain"],Core::$Config["LogonDomain"],$email);
+    }
   }
 }
 ?>
