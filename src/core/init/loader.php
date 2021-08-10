@@ -19,9 +19,6 @@ class Loader {
         break;
       default:
         $p = $this->get_page_name();
-        if (substr($p,0,6) != "/admin") {
-          header('Content-Type: application/json');  // <-- header declaration
-        }
         if(substr($p,0,1) == "/") {
           Core::$CurrentPage = substr($p,1);
         } else {

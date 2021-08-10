@@ -1,5 +1,6 @@
 <?php
 class Responder {
+  private $Response;
   public function show_response(){
     // get the response detailed by the url requested
     $response = $this->get_response();
@@ -13,8 +14,19 @@ class Responder {
     }
   }
   private function send_response($response){
-    // Send json encoded response
-    echo json_encode($response, true);
+    switch ($response->content_type){
+      case "json":
+        header('Content-Type: application/json');
+        // Send json encoded response
+        echo json_encode($response, true);
+        break;
+      case "xml":
+        header('Content-Type: application/xml');
+        include ($response->content);
+        break;
+    }
+
+
   }
   private function get_response(){
     $resp = false;
@@ -25,8 +37,8 @@ class Responder {
       case "get/all":
         $resp = $this->all_urls();
         break;
-      case "get/select":
-        $resp = $this->selection();
+      case "mail/config-v1.1.xml":
+        $resp = $this->moz_auto_config();
         break;
       case "none":
       case "test":
@@ -40,8 +52,6 @@ class Responder {
     return $resp;
   }
   private function all_urls(){
-
-    // This would be the default request from, say, an app.
     $response = new Response();
 
     // TODO:: Will work out a better message later
@@ -49,23 +59,22 @@ class Responder {
 
     // Cycle through each service and add to payload
     foreach (Core::$Config["Services"] as $key => $service){
-      $response->payload[$key] = $service;
+      $response->content[$key] = $service;
     }
 
     return $response;
   }
-  private function selection(){
+  private function moz_auto_config(){
     $response = new Response();
-    $response->message = "Not Implemented";
-    $uri = Core::full_url();
-    $response->payload = parse_url($uri);
+    $response->content_type = "xml";
+    $response->content = "public/autoconfig.php";
     return $response;
   }
   private function dummy_response(){
     // Generate a dummy response for testing
     $response = new Response();
     $response->message = "OK, here's some scrumptious data! Enjoy!";
-    $response->payload = array("data" => array("some_data" => "Ohhhhhmmmm nom nom nom nom nom nom",
+    $response->content = array("data" => array("some_data" => "Ohhhhhmmmm nom nom nom nom nom nom",
                                                "extra_data" => array("garnish" => "buuuuuuuuuuurp")),
                                 "more_data" => "yuuuuuum yum yum yum");
     return $response;
@@ -79,8 +88,9 @@ class Responder {
 }
 class Response {
   public $url;
+  public $content_type = "json";
   public $message;
-  public $payload = array();
+  public $content = array();
   public function __construct(){
     // add requested page to response. I don't know why, but it could helpful for diagnostics at some point
     $this->url = Core::$CurrentPage;
