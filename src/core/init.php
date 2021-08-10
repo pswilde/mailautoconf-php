@@ -29,7 +29,6 @@ class Init {
     // YOU REALLY SHOULD HAVE YOUR OWN CONFIG FILE!!!
 
     if (!file_exists($config)) {
-      echo copy(Core::root_dir()."/sample-config/services.sample.ini", $config);
       $config = Core::root_dir()."/sample-config/config.sample.ini";
     }
 
@@ -40,7 +39,6 @@ class Init {
     // YOU REALLY SHOULD HAVE YOUR OWN SERVICES FILE!!!
 
     if (!file_exists($services)) {
-      echo copy(Core::root_dir()."/sample-config/services.sample.ini", $services);
       $services = Core::root_dir()."/sample-config/services.sample.ini";
     }
 

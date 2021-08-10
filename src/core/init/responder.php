@@ -84,6 +84,11 @@ class Response {
   public function __construct(){
     // add requested page to response. I don't know why, but it could helpful for diagnostics at some point
     $this->url = Core::$CurrentPage;
-    $this->commit = Core::$Config["CommitID"];
+    if (!Core::$Config["CommitID"]){
+      $this->version = Core::VERSION;
+    } else {
+      $this->version = "git commit ".Core::$Config["CommitID"];
+    }
+
   }
 }
