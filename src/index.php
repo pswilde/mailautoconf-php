@@ -1,3 +1,5 @@
 <?php
 // entry point - inport and run the public index.php file
-require("public/index.php");
+include("core/init.php");
+$b = new Init();
+$b->start();

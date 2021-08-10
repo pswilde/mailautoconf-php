@@ -1,6 +1,6 @@
 <?php
 // this class starts the whole thing going.
-class StartUp {
+class Init {
   public function start (){
     // define a constant for checking later on
     define("LETSGO",true);
@@ -29,7 +29,7 @@ class StartUp {
     // YOU REALLY SHOULD HAVE YOUR OWN CONFIG FILE!!!
 
     if (!file_exists($config)) {
-      $config = Core::root_dir()."/config/config.sample.ini";
+      $config = Core::root_dir()."/sample-config/config.sample.ini";
     }
 
     // define services file location
@@ -39,7 +39,7 @@ class StartUp {
     // YOU REALLY SHOULD HAVE YOUR OWN SERVICES FILE!!!
 
     if (!file_exists($services)) {
-      $services = Core::root_dir()."/config/services.sample.ini";
+      $services = Core::root_dir()."/sample-config/services.sample.ini";
     }
 
     // Store the config settings in the Core::Config variable

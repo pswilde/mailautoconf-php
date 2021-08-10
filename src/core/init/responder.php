@@ -25,6 +25,9 @@ class Responder {
       case "get/all":
         $resp = $this->all_urls();
         break;
+      case "get/select":
+        $resp = $this->selection();
+        break;
       case "none":
       case "test":
       case "home":
@@ -49,6 +52,13 @@ class Responder {
       $response->payload[$key] = $service;
     }
 
+    return $response;
+  }
+  private function selection(){
+    $response = new Response();
+    $response->message = "Not Implemented";
+    $uri = Core::full_url();
+    $response->payload = parse_url($uri);
     return $response;
   }
   private function dummy_response(){

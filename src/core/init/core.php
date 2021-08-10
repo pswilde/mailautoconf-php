@@ -4,13 +4,7 @@
   public static function root_dir(){
     return $_SERVER['DOCUMENT_ROOT'];
   }
-  public static function get_current_page_name(){
-    if (!isset(self::$CurrentPage->Name)){
-      return "Login";
-    } else {
-      return self::$CurrentPage->Name;
-    }
-  }
+
   public static function get_post_data(){
     $data = [];
     foreach($_POST as $key=>$value){
@@ -48,10 +42,29 @@
     }
   }
   public static function get_current_git_commit( $branch='master' ) {
-    if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
+    $gitref = sprintf( self::root_dir().'/../.git/refs/heads/%s', $branch );
+    if ( file_exists($gitref) && $hash = file_get_contents( $gitref ) ) {
       return trim($hash);
     } else {
       return false;
     }
+  }
+  public static function full_url(){
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+      $addr = "https";
+    } else {
+      $addr = "http";
+    }
+    // Here append the common URL characters.
+    $addr .= "://";
+
+    // Append the host(domain name, ip) to the URL.
+    $addr .= $_SERVER['HTTP_HOST'];
+
+    // Append the requested resource location to the URL
+    $addr .= $_SERVER['REQUEST_URI'];
+
+    // Return the address
+    return $addr;
   }
 }

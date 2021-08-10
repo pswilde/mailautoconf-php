@@ -22,8 +22,11 @@ class Loader {
         if (substr($p,0,6) != "/admin") {
           header('Content-Type: application/json');  // <-- header declaration
         }
-        // if($p != "none") {
+        if(substr($p,0,1) == "/") {
           Core::$CurrentPage = substr($p,1);
+        } else {
+          Core::$CurrentPage = $p;
+        }
           require_once(Core::root_dir()."/public/respond.php");
         // } else {
         //   Core::$CurrentPage = "Error";
