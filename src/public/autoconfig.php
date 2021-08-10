@@ -17,7 +17,7 @@ if ($data["path"]) {
    <displayName><?php echo $email_provided ? $email : "%EMAILADDRESS%" ;?></displayName>
    <?php if($conf["InMail"]){
      $in = $conf["InMail"]; ?>
-     <incomingServer type="<?php echo $in["Type"];?>">
+     <incomingServer type="<?php echo strtolower($in["Type"]);?>">
        <hostname><?php echo $in["Server"];?></hostname>
        <port><?php echo $in["Port"];?></port>
        <socketType><?php echo $in["SocketType"];?></socketType>
@@ -25,9 +25,9 @@ if ($data["path"]) {
        <authentication><?php echo $in["Authentication"];?></authentication>
      </incomingServer>
    <?php } ?>
-   <?php if($conf["InMail"]){
-     $out = $conf["InMail"]; ?>
-   <outgoingServer type="<?php echo $out["Type"];?>">
+   <?php if($conf["OutMail"]){
+     $out = $conf["OutMail"]; ?>
+   <outgoingServer type="<?php echo strtolower($out["Type"]);?>">
      <hostname><?php echo $out["Server"];?></hostname>
      <port><?php echo $out["Port"];?></port>
      <socketType><?php echo $out["SocketType"];?></socketType>
