@@ -15,7 +15,7 @@ Getting a set up like this configured on a mobile device is fairly involved for 
 There are many points where set up configuration mistakes can happen, leading to service outage for a user, and the difficult job of
 the IT consultant trying to talk the user through setting the device up over the phone.
 
-DAVDiscover intends to patch this problem by providing the URLS and information (Port numbers, SSL/TLS type, domain name, etc.) for each service
+DAVDiscover intends to patch this problem by providing the URLs and information (Port numbers, SSL/TLS type, domain name, etc.) for each service
 in JSON format allowing for the connecting device to automatically set up this information on the device.
 
 ## What problems do I expect?
