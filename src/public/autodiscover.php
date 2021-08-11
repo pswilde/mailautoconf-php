@@ -5,8 +5,18 @@ $data = file_get_contents("php://input");
 // file_put_contents(Core::root_dir()."/xmltest", $data);
 preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
 //print_r($matches);
-//echo '<?xml version="1.0" encoding="utf-8" '
-?>
+
+
+// Example POST Request :
+// <?xml version="1.0" \?\>
+// <Autodiscover xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/requestschema/2006">
+//   <Request>
+//     <EMailAddress>psw@wilde.cloud</EMailAddress>
+//     <AcceptableResponseSchema>http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a</AcceptableResponseSchema>
+//   </Request>
+// </Autodiscover>
+
+echo '<?xml version="1.0" encoding="utf-8" ?>';?>
 <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
    <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
        <Account>
