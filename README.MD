@@ -28,8 +28,8 @@ For example, in nginx:
 server {
   listen                443 ssl;
   server_name           autoconfig.example.com;
-  ssl_certificate		    /path/to/certificate.file;
-  ssl_certificate_key	  /path/to/certificate.key
+  ssl_certificate       /path/to/certificate.file;
+  ssl_certificate_key   /path/to/certificate.key
   location / {
     proxy_set_header    X-Forwarded-Host $host:$server_port;
     proxy_set_header    X-Forwarded-Server $host;
