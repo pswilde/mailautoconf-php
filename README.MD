@@ -34,8 +34,8 @@ server {
     proxy_set_header    X-Forwarded-Host $host:$server_port;
     proxy_set_header    X-Forwarded-Server $host;
     proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_pass 	        http://localhost:8010/;
-    proxy_redirect 	    http://localhsot:8010/ /;
+    proxy_pass          http://localhost:8010/;
+    proxy_redirect      http://localhsot:8010/ /;
     proxy_read_timeout  60s;
   }
 }
