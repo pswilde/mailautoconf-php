@@ -94,7 +94,7 @@ class Responder {
     $response->content_type = "ms-json";
     $response->content = new MSAutodiscoverJSONResponse();
     $response->content->Protocol = "AutodiscoverV1";
-    $response->content->Protocol = "https://" . $_SERVER['HTTP_HOST'] . "/Autodiscover/Autodiscover.xml";
+    $response->content->Url = "https://" . $_SERVER['HTTP_HOST'] . "/Autodiscover/Autodiscover.xml";
     return $response;
   }
   private function dummy_response(){
