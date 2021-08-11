@@ -62,7 +62,7 @@ My hope for MailAutoConf is to run as an autoconfig service which provides Calen
 Calendar and AddressBook is in the autoconfig XML documentation, but currently not implemented. MailAutoConf can generate the correct information for Calendar and AddressBook into the autoconfig XML file, though no clients currently use it.
 
 Things I'd like MailAutoConf to do:
-- [*] /mail/config-v1.1.xml file for Thunderbird and Evolution mail clients.
+- [x] /mail/config-v1.1.xml file for Thunderbird and Evolution mail clients.
 - [ ] Autodiscover.xml for Outlook clients - currently does generate, but untested.
 - [ ] Autodiscover.json for more modern Outlook clients - this is currently undocumented. I have implemented some features of it but it is currently not working.
 - [ ] Calendars and Address Book - does generate into mail/config-v1.1.xml, but no actual clients support it yet.
