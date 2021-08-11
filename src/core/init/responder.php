@@ -20,6 +20,11 @@ class Responder {
         // Send json encoded response
         echo json_encode($response, true);
         break;
+      case "ms-json":
+        header('Content-Type: application/json');
+        // Send json encoded response
+        echo json_encode($response->content, true);
+        break;
       case "xml":
         header('Content-Type: application/xml');
         include ($response->content);
@@ -44,7 +49,8 @@ class Responder {
       case "Autodiscover/Autodiscover.xml":
         $resp = $this->ms_autodiscover();
         break;
-      case "/autodiscover/autodiscover.json": //?Email=psw%40wilde.cloud&Protocol=Autodiscoverv1&RedirectCount=1"
+      case "autodiscover/autodiscover.json": //?Email=psw%40wilde.cloud&Protocol=Autodiscoverv1&RedirectCount=1"
+      case "Autodiscover/Autodiscover.json":
         $resp = $this->ms_autodiscover_json();
         break;
       case "none":
@@ -85,8 +91,10 @@ class Responder {
   }
   private function ms_autodiscover_json(){
     $response = new Response();
-    $response->content_type = "xml";
-    $response->content = "public/autodiscover.php";
+    $response->content_type = "ms-json";
+    $response->content = new MSAutodiscoverJSONResponse();
+    $response->content->Protocol = "AutodiscoverV1";
+    $response->content->Protocol = "https://" . $_SERVER['HTTP_HOST'] . "/Autodiscover/Autodiscover.xml";
     return $response;
   }
   private function dummy_response(){
@@ -120,4 +128,8 @@ class Response {
     }
 
   }
+}
+class MSAutodiscoverJSONResponse {
+  public $Protocol;
+  public $Url;
 }
