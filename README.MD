@@ -26,19 +26,19 @@ You will need a reverse proxy server to publish to the outside world and handle 
 For example, in nginx:
 ```
 server {
-        listen      443 ssl;
-        server_name  autoconfig.example.com;
-	      ssl_certificate		/path/to/certificate.file;
-	      ssl_certificate_key	/path/to/certificate.key
-        location / {
-		      proxy_set_header    X-Forwarded-Host $host:$server_port;
-    		  proxy_set_header    X-Forwarded-Server $host;
-    		  proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-		      proxy_pass 	        http://localhost:8010/;
-		      proxy_redirect 	    http://localhsot:8010/ /;
-		      proxy_read_timeout  60s;
-        }
-    }
+  listen                443 ssl;
+  server_name           autoconfig.example.com;
+	ssl_certificate		    /path/to/certificate.file;
+	ssl_certificate_key	  /path/to/certificate.key
+  location / {
+    proxy_set_header    X-Forwarded-Host $host:$server_port;
+    proxy_set_header    X-Forwarded-Server $host;
+    proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass 	        http://localhost:8010/;
+    proxy_redirect 	    http://localhsot:8010/ /;
+    proxy_read_timeout  60s;
+  }
+}
 ```  
 First run will create sample.ini files in the config directory. Copy these to config.ini and services.ini and configure them to your needs.
 
