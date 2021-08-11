@@ -2,7 +2,7 @@
 $conf = Core::$Config["Services"];
 //get raw POST data so we can extract the email address
 $data = file_get_contents("php://input");
-file_put_contents(Core::root_dir()."/xmltest", $data);
+// file_put_contents(Core::root_dir()."/xmltest", $data);
 preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
 //print_r($matches);
 //echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
