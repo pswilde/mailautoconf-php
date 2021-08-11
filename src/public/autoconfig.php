@@ -1,4 +1,13 @@
 <?php
+
+// Errrrrrrrrgh, this is sooooo messy, I'm going to tidy this up
+// It's basically configuring the format of the email address dependent on
+// variables set in the config file.
+// i.e. if the domain isn't required for authentication then it strips the
+// username back to just the pre-@ part. Or, if the username requires a different
+// logon domain, then it replaces the email domain with the localdomain
+//
+// TODO: TIDY THIS UP!!
 $conf = Core::$Config["Services"];
 $data = Core::get_get_data();
 $email_provided = false;

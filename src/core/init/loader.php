@@ -1,11 +1,14 @@
 <?php
+// require all necessary files
 require ("core.php");
 require ("user.php");
 require ("responder.php");
 require ("errors.php");
+
 class Loader {
   public function request_page(){
     // Check if user is authenticated and go to the relevant section
+    // Currently no authentication is in place so should always be true
     if (User::is_authenticated()){
       $this->go_to_page(true);
     } else {
@@ -20,6 +23,7 @@ class Loader {
       default:
         $p = $this->get_page_name();
         if(substr($p,0,1) == "/") {
+          // Remove first slash if exists
           Core::$CurrentPage = substr($p,1);
         } else {
           Core::$CurrentPage = $p;

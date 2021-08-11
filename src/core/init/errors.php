@@ -3,6 +3,7 @@ class Errors {
   public function throw_error($err){
     header('Content-Type: application/json');  // <-- header declaration
     $error = false;
+    // Some Saved error messages - more to be added
     switch ($err) {
       case "NotFound":
         $error = new ErrorMessage("Error","404","Not Found");
@@ -14,6 +15,7 @@ class Errors {
         $error = new ErrorMessage("Error","500","Internal Error");
         break;
     }
+    // Output error in JSON format
     echo json_encode($error, true);    // <--- encode
   }
 }

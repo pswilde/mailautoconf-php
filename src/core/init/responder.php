@@ -23,6 +23,7 @@ class Responder {
       case "ms-json":
         header('Content-Type: application/json');
         // Send json encoded response
+        // This is currently an undocumented file from Microsoft so it's not ready yet
         echo json_encode($response->content, true);
         break;
       case "xml":
@@ -35,6 +36,7 @@ class Responder {
   }
   private function get_response(){
     $resp = false;
+    // Handle the requested URL, using as many known autoconfiguration urls as possible
     switch (Core::$CurrentPage){
       case "get/test":
         $resp = $this->dummy_response();
@@ -42,6 +44,7 @@ class Responder {
       case "get/all":
         $resp = $this->all_urls();
         break;
+      case "mail/autoconfig.xml":
       case "mail/config-v1.1.xml":
         $resp = $this->moz_auto_config();
         break;
@@ -49,7 +52,7 @@ class Responder {
       case "Autodiscover/Autodiscover.xml":
         $resp = $this->ms_autodiscover();
         break;
-      case "autodiscover/autodiscover.json": //?Email=psw%40wilde.cloud&Protocol=Autodiscoverv1&RedirectCount=1"
+      case "autodiscover/autodiscover.json":
       case "Autodiscover/Autodiscover.json":
         $resp = $this->ms_autodiscover_json();
         break;
@@ -66,7 +69,7 @@ class Responder {
   }
   private function all_urls(){
     $response = new Response();
-
+    // Not really useful, unless some lovely app developers want to parse it for their app :)
     // TODO:: Will work out a better message later
     $response->message = "All URLs Requested";
 
@@ -78,18 +81,21 @@ class Responder {
     return $response;
   }
   private function moz_auto_config(){
+    // The default Thunderbird or Evolution autoconfig.xml file
     $response = new Response();
     $response->content_type = "xml";
     $response->content = "public/autoconfig.php";
     return $response;
   }
   private function ms_autodiscover(){
+    // The default Microsoft Autodiscover.xml file
     $response = new Response();
     $response->content_type = "xml";
     $response->content = "public/autodiscover.php";
     return $response;
   }
   private function ms_autodiscover_json(){
+    // The new Microsoft Autodiscover.json file - undocumented
     $response = new Response();
     $response->content_type = "ms-json";
     $response->content = new MSAutodiscoverJSONResponse();
@@ -120,6 +126,7 @@ class Response {
   public $content = array();
   public function __construct(){
     // add requested page to response. I don't know why, but it could helpful for diagnostics at some point
+    // Does not happen on autoconfig.xml/autodisocver.xml/autodiscover.json files
     $this->url = Core::$CurrentPage;
     if (!Core::$Config["CommitID"]){
       $this->version = Core::VERSION;
@@ -129,7 +136,13 @@ class Response {
 
   }
 }
+class AutoConfig {
+  public prepare_autoconfig_info(){
+    // TODO: Move all the code in autoconfig.php into here
+  }
+}
 class MSAutodiscoverJSONResponse {
+  // More work to do - handling of MS Autodiscover.json requests
   public $Protocol;
   public $Url;
 }
