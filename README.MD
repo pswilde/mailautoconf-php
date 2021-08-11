@@ -71,7 +71,7 @@ Things I'd like MailAutoConf to do:
 
 
 ## When will it be ready for production?
-Well, not yet. Though it does sort of work already.
+Well, not yet. Though it does sort of work already.  
 I'm working on this ultimately for my own use for my own small business. I'm hoping once it's good enough I could deploy the set up to my businesses customers and ultimately get them away from a Microsoft Exchange based environment. There's a long way to go for that right now though.  
 
 If you feel you may be able to help, or ideas on features and their implementation, notice any bugs, or just want to say hi. Please do so and submit a pull request if required.
