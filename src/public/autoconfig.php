@@ -24,6 +24,9 @@ if ($email_provided) {
     $email_address = str_ireplace(Core::$Config["Domain"],Core::$Config["LogonDomain"],$email_address);
   }
 }
+
+// The below link has config-v1.1.xml information
+// https://wiki.mozilla.org/Thunderbird:Autoconfiguration:ConfigFileFormat
 ?>
 <clientConfig version="1.1">
  <emailProvider id="<?php echo Core::$Config["Domain"]?>">
@@ -38,8 +41,8 @@ if ($email_provided) {
        <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
        <authentication><?php echo $in["Authentication"];?></authentication>
      </incomingServer>
-   <?php } ?>
-   <?php if($conf["OutMail"]){
+   <?php }
+   if($conf["OutMail"]){
      $out = $conf["OutMail"]; ?>
    <outgoingServer type="<?php echo strtolower($out["Type"]);?>">
      <hostname><?php echo $out["Server"];?></hostname>
@@ -48,6 +51,34 @@ if ($email_provided) {
      <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
      <authentication><?php echo $out["Authentication"];?></authentication>
    </outgoingServer>
-   <?php } ?>
+   <?php }
+   if ($conf["AddressBook"]) {
+     $card = $conf["AddressBook"]; ?>
+    <addressBook type="<?php echo strtolower($card["Type"]); ?>">
+      <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
+      <authentication><?php echo $card["Authentication"] ? $card["Authentication"] : "http-basic" ;?></authentication>
+      <serverURL><?php echo $card["Server"];?></serverURL>
+    </addressBook>
+    <?php }
+    if ($conf["Calendar"]){
+      $cal = $conf["Calendar"] ;?>
+    <calendar type="<?php echo strtolower($cal["Type"]);?>">
+      <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
+      <authentication><?php echo $card["Authentication"] ? $card["Authentication"] : "http-basic" ;?></authentication>
+      <serverURL><?php echo $card["Server"];?></serverURL>
+    </calendar>
+    <?php }
+    if ($conf["WebMail"]) {
+      $wm = $conf["WebMail"]; ?>
+    <webMail>
+      <loginPage url="<?php echo $wm["Server"];?>" />
+      <loginPageInfo url="<?php echo $wm["Server"];?>">
+        <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
+        <usernameField id="<?php echo $wm["UsernameDivID"];?>" name="<?php echo $wm["UsernameDivName"];?>" />
+        <passwordField name="<?php echo $wm["PasswordDivName"];?>" />
+        <loginButton id="<?php echo $wm["SubmitButtonID"];?>" name="<?php echo $wm["SubmitButtonName"];?>"/>
+      </loginPageInfo>
+    </webMail>
+    <?php } ?>
  </emailProvider>
 </clientConfig>
