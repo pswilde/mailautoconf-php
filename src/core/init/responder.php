@@ -44,6 +44,9 @@ class Responder {
       case "Autodiscover/Autodiscover.xml":
         $resp = $this->ms_autodiscover();
         break;
+      case "/autodiscover/autodiscover.json": //?Email=psw%40wilde.cloud&Protocol=Autodiscoverv1&RedirectCount=1"
+        $resp = $this->ms_autodiscover_json();
+        break;
       case "none":
       case "test":
       case "home":
@@ -75,6 +78,12 @@ class Responder {
     return $response;
   }
   private function ms_autodiscover(){
+    $response = new Response();
+    $response->content_type = "xml";
+    $response->content = "public/autodiscover.php";
+    return $response;
+  }
+  private function ms_autodiscover_json(){
     $response = new Response();
     $response->content_type = "xml";
     $response->content = "public/autodiscover.php";

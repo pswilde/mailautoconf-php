@@ -4,7 +4,8 @@ $conf = Core::$Config["Services"];
 $data = file_get_contents("php://input");
 file_put_contents(Core::root_dir()."/xmltest", $data);
 preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
-echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
+//print_r($matches);
+//echo '<?xml version="1.0" encoding="utf-8" ?>'; ?>
 <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
    <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
        <Account>
