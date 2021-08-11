@@ -1,9 +1,43 @@
-# MailAutoConf - a simple, configurable autodiscover service for distributed and self-hosted groupware services.
-## What is MailAutoConf?
-MailAutoConf is a self-hosted service which provides IMAP, SMTP, CalDAV, CardDav, etc
-URLs to authenticated clients for ease in set up on mobile devices and also desktop/laptop computers.  
+# MailAutoConf - a simple, configurable autodiscover/autoconfig service for distributed and self-hosted services.  
 
-## What ~~does~~ will MailAutoConf do?
+## What is MailAutoConf?
+MailAutoConf is autodiscover/autoconfig web server for self-hosted mail services
+which do not have their own autodiscover service.
+
+## What does MailAutoConf do?
+MailAutoConf is currently in _very_early stages, but it does generate valid
+autoconfig XML files (/mail/config-v1.1.xml) compatible with many mail clients
+i.e. Thunderbird, Evolution, etc.  
+Theoretically, anything that can read the standard autoconfig XML file -
+https://wiki.mozilla.org/Thunderbird:Autoconfiguration:ConfigFileFormat, should
+be able to auto-configure using this service.
+
+## Installation
+The container file includes set up for an apache webserver to run the application.
+You will need to supply a volume for the configuration file and port forwarding.
+```
+podman run -dt --name mailautoconf -v ./config:/var/www/html/config -p 8010:80 pswilde/automailconf
+```
+You will need a reverse proxy server to publish to the outside world and handle SSL encryption.  
+For example, in nginx:
+```
+server {
+        listen      443 ssl;
+        server_name  autoconfig.example.com;
+	      ssl_certificate		/path/to/certificate.file;
+	      ssl_certificate_key	/path/to/certificate.key
+        location / {
+		      proxy_set_header X-Forwarded-Host $host:$server_port;
+    		  proxy_set_header X-Forwarded-Server $host;
+    		  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		      proxy_pass 	     http://localhost:8010/;
+		      proxy_redirect 	 http://localhsot:8010/ /;
+		      proxy_read_timeout 60s;
+        }
+    }
+```
+
+## Future plans
 MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
 My hope for MailAutoConf is to mimic the AutoDiscover service found in Microsoft Exchange services,
 but with the intent of providing a set of URLS for each service which may be self-hosted and/or distributed,
