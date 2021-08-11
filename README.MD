@@ -54,6 +54,7 @@ a SRV record to redirect to the autoconfig.your.domain A record. i.e.
 ```         
 Type                                TTL  P  M  Port Target
 SRV _autodiscover._tcp.your.domain  3600 10 10 443  autoconfig.your.domain
+```
 
 ## Future plans
 MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
