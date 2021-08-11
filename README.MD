@@ -56,13 +56,17 @@ Type                                TTL  P  M  Port Target
 SRV _autodiscover._tcp.your.domain  3600 10 10 443  autoconfig.your.domain
 ```
 
+
 ## Future plans
 MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
 My hope for MailAutoConf is to run as an autoconfig service which provides Calendar and AddressBook locations as well.
 Calendar and AddressBook is in the autoconfig XML documentation, but currently not implemented. MailAutoConf can generate the correct information for Calendar and AddressBook into the autoconfig XML file, though no clients currently use it.
 
-Things I'd like MailAutoConf to do:
+## TODO:
+
 - [x] /mail/config-v1.1.xml file for Thunderbird and Evolution mail clients.
+- [ ] Add more code commenting, it's pretty terrible right now.
+- [ ] Refactor the autoconfig and autodiscover XML files, they've been copied and bodged together and could look so much better.
 - [ ] Autodiscover.xml for Outlook clients - currently does generate, but untested.
 - [ ] Autodiscover.json for more modern Outlook clients - this is currently undocumented. I have implemented some features of it but it is currently not working.
 - [ ] Calendars and Address Book - does generate into mail/config-v1.1.xml, but no actual clients support it yet.
