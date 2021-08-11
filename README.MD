@@ -1,11 +1,11 @@
-# DAVDiscover - a simple, configurable autodiscover service for distributed and self-hosted groupware services.
-## What is DAVDiscover?
-DAVDiscover is a self-hosted service which provides IMAP, SMTP, CalDAV, CardDav, etc
+# MailAutoConf - a simple, configurable autodiscover service for distributed and self-hosted groupware services.
+## What is MailAutoConf?
+MailAutoConf is a self-hosted service which provides IMAP, SMTP, CalDAV, CardDav, etc
 URLs to authenticated clients for ease in set up on mobile devices and also desktop/laptop computers.  
 
-## What ~~does~~ will DAVDiscover do?
-DAVDiscover is currently in _very_ early stages, with a _very_ limited set of features.
-My hope for DAVDiscover is to mimic the AutoDiscover service found in Microsoft Exchange services,
+## What ~~does~~ will MailAutoConf do?
+MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
+My hope for MailAutoConf is to mimic the AutoDiscover service found in Microsoft Exchange services,
 but with the intent of providing a set of URLS for each service which may be self-hosted and/or distributed,
 primary IMAP, SMTP, CalDAV and CardDAV URLS, but hopefully more services can be added in the future.  
 
@@ -15,7 +15,7 @@ Getting a set up like this configured on a mobile device is fairly involved for 
 There are many points where set up configuration mistakes can happen, leading to service outage for a user, and the difficult job of
 the IT consultant trying to talk the user through setting the device up over the phone.
 
-DAVDiscover intends to patch this problem by providing the URLs and information (Port numbers, SSL/TLS type, domain name, etc.) for each service
+MailAutoConf intends to patch this problem by providing the URLs and information (Port numbers, SSL/TLS type, domain name, etc.) for each service
 in JSON format allowing for the connecting device to automatically set up this information on the device.
 
 ## What problems do I expect?
@@ -27,13 +27,13 @@ In the perfect world, this service starts to look so fantastic that mobile devic
 in their own code as an Account Type (i.e. ActiveSync, Office365, iCloud, IMAP, etc. are all already there), but I'm not sure if I see that happening just yet.  
 
 ### Another problem is authentication.
-I'd like all clients to authenticate to the DAVDiscover service, but where do we get that authentication from?  
-We could have local accounts on the DAVDiscover server obviously, but I don't think this feels "fluent" enough. Maybe, using the primary IMAP server address, we could do an authentication request and if that succeeds the login is accepted and DAVDiscover information is sent.   
+I'd like all clients to authenticate to the MailAutoConf service, but where do we get that authentication from?  
+We could have local accounts on the MailAutoConf server obviously, but I don't think this feels "fluent" enough. Maybe, using the primary IMAP server address, we could do an authentication request and if that succeeds the login is accepted and MailAutoConf information is sent.   
 
 ### More problems regarding authentication.
 As we're intended to be used for self-hosted, distributed services, each service may have different usernames and passwords.
 This means there will have to be some sort of manual credential entry for each service.  
-I am less concerned with this issue as it currently isn't really in the scope of DAVDiscover to handle this - the goal is to provide the core information (URL, Ports, etc.) not the credentials to log in. I of course want to make the experience as helpful as possible though, so I'll deal with any features surrounding this when I can.
+I am less concerned with this issue as it currently isn't really in the scope of MailAutoConf to handle this - the goal is to provide the core information (URL, Ports, etc.) not the credentials to log in. I of course want to make the experience as helpful as possible though, so I'll deal with any features surrounding this when I can.
 
 ## When will it be ready for production?
 Well, not yet.  
