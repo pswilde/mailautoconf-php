@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-podman run --name davdiscover-test \
+podman run --name mailautoconf-test \
   --rm \
   -p "8010:80" \
   -v ./src:/var/www/html/ \

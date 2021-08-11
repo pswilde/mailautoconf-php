@@ -1,9 +1,9 @@
 version: '3.3'
 services:
-    davdiscover:
-        container_name: davdiscover
+    mailautoconf:
+        container_name: mailautoconf
         ports:
             - '8010:80'
         volumes:
             - './config:/var/www/html/config'
-        image: pswilde/davdiscover
+        image: pswilde/mailautoconf
