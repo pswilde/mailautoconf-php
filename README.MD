@@ -16,7 +16,11 @@ be able to auto-configure using this service.
 The container file includes set up for an apache webserver to run the application.
 You will need to supply a volume for the configuration file and port forwarding.
 ```
-podman run -dt --name mailautoconf -v ./config:/var/www/html/config -p 8010:80 pswilde/automailconf
+podman run -dt \
+  --name mailautoconf \
+  -v ./config:/var/www/html/config \
+  -p 8010:80 \
+  pswilde/automailconf
 ```
 You will need a reverse proxy server to publish to the outside world and handle SSL encryption.  
 For example, in nginx:
