@@ -5,7 +5,7 @@ MailAutoConf is autodiscover/autoconfig web server for self-hosted mail services
 which do not have their own autodiscover service.
 
 ## What does MailAutoConf do?
-MailAutoConf is currently in _very_early stages, but it does generate valid
+MailAutoConf is currently in _very_ early stages, but it does generate valid
 autoconfig XML files (/mail/config-v1.1.xml) compatible with many mail clients
 i.e. Thunderbird, Evolution, etc.  
 Theoretically, anything that can read the standard autoconfig XML file -
