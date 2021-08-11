@@ -40,6 +40,9 @@ class Responder {
       case "mail/config-v1.1.xml":
         $resp = $this->moz_auto_config();
         break;
+      case "autodiscover":
+        $resp = $this->ms_autodiscover();
+        break;
       case "none":
       case "test":
       case "home":
@@ -68,6 +71,12 @@ class Responder {
     $response = new Response();
     $response->content_type = "xml";
     $response->content = "public/autoconfig.php";
+    return $response;
+  }
+  private function ms_autodiscover(){
+    $response = new Response();
+    $response->content_type = "xml";
+    $response->content = "public/autodiscover.php";
     return $response;
   }
   private function dummy_response(){
