@@ -40,7 +40,8 @@ class Responder {
       case "mail/config-v1.1.xml":
         $resp = $this->moz_auto_config();
         break;
-      case "autodiscover":
+      case "autodiscover/autodiscover.xml":
+      case "Autodiscover/Autodiscover.xml":
         $resp = $this->ms_autodiscover();
         break;
       case "none":
