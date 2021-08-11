@@ -40,7 +40,20 @@ server {
   }
 }
 ```  
-First run will create sample.ini files in the config directory. Copy these to config.ini and services.ini and configure them to your needs.
+First run will create sample.ini files in the config directory. Copy these to config.ini and services.ini and configure them to your needs.  
+
+MailAutoConf will handle all the URLs it's able to deal with, i.e. /mail/config-v1.1.xml, /Autodiscover/Autodiscover.xml automatically.  
+
+## DNS config
+You will need to configure DNS records for your domain.  
+I would recommend setting up an A record for autoconfig.your.domain to point
+directly to your MailAutoConf's instance which will work for Thunderbird and
+Evolution clients.
+Then, if Outlook Autodiscover is required (currently not implemented), configure
+a SRV record to redirect to the autoconfig.your.domain A record. i.e.
+```         
+Type                                TTL  P  M  Port Target
+SRV _autodiscover._tcp.your.domain  3600 10 10 443  autoconfig.your.domain
 
 ## Future plans
 MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
@@ -48,6 +61,7 @@ My hope for MailAutoConf is to run as an autoconfig service which provides Calen
 Calendar and AddressBook is in the autoconfig XML documentation, but currently not implemented. MailAutoConf can generate the correct information for Calendar and AddressBook into the autoconfig XML file, though no clients currently use it.
 
 Things I'd like MailAutoConf to do:
+- [*] /mail/config-v1.1.xml file for Thunderbird and Evolution mail clients.
 - [ ] Autodiscover.xml for Outlook clients - currently does generate, but untested.
 - [ ] Autodiscover.json for more modern Outlook clients - this is currently undocumented. I have implemented some features of it but it is currently not working.
 - [ ] Calendars and Address Book - does generate into mail/config-v1.1.xml, but no actual clients support it yet.
