@@ -7,7 +7,7 @@ preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
 //print_r($matches);
 
 
-// Example POST Request :
+// Example POST Request (sent from client) :
 // <?xml version="1.0" \?\>
 // <Autodiscover xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/requestschema/2006">
 //   <Request>
@@ -17,8 +17,8 @@ preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
 // </Autodiscover>
 
 echo '<?xml version="1.0" encoding="utf-8" ?>';?>
-<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
-   <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
+<Autodiscover xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
+  <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
        <Account>
            <AccountType>email</AccountType>
            <Action>settings</Action>
