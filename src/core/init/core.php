@@ -1,6 +1,6 @@
 <?php class Core {
   public static $Config;
-  public const VERSION = "0.0.6";
+  public const VERSION = "0.0.7";
   public static $CurrentPage;
   public static function root_dir(){
     return $_SERVER['DOCUMENT_ROOT'];
