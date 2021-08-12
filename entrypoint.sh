@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-cp /var/www/html/sample-config/* /var/www/html/config/
+echo Removing old sample config files…
+rm /var/www/html/config/*.sample.ini
+echo Copying new sample config files…
+cp /var/www/html/default-config/config.default.ini /var/www/html/config/config.sample.ini
+cp /var/www/html/default-config/services.default.ini /var/www/html/config/services.sample.ini
+echo Running HTTPD…
 exec apache2-foreground

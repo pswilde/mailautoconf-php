@@ -22,30 +22,33 @@ class Init {
     $loader->request_page();
   }
   private function get_config(){
-    // define the config file location
-    $config = Core::root_dir()."/config/config.ini";
+    // parse the default config file for default values
+    $default_config = parse_ini_file(Core::root_dir()."/default-config/config.default.ini", true);
+    // define the custom config file location
+    $config_file = Core::root_dir()."/config/config.ini";
+    $config = array();
+    if (file_exists($config_file)) {
+      // if a custom config file exists then parse that file too
+      $config = parse_ini_file($config_file, true);
+    }
+    // merge the default config with the custom config
+    Core::$Config = array_merge($default_config,$config);
 
-    // if it doesn't exist, use the sample file
-    // YOU REALLY SHOULD HAVE YOUR OWN CONFIG FILE!!!
+    // parse the default services file for default values
+    $default_services = parse_ini_file(Core::root_dir()."/default-config/services.default.ini", true);
 
-    if (!file_exists($config)) {
-      $config = Core::root_dir()."/sample-config/config.sample.ini";
+    // define the custom services file location
+    $services_file = Core::root_dir()."/config/services.ini";
+    $services = array();
+    if (file_exists($services_file)) {
+      // if a custom config file exists then parse that file too
+      $services = parse_ini_file($services_file, true);
     }
 
-    // define services file location
-    $services = Core::root_dir()."/config/services.ini";
+    // merge the default config with the custom config
+    Core::$Config["Services"] = array_merge($default_services,$services);
 
-    // if it doesn't exist, use the sample file
-    // YOU REALLY SHOULD HAVE YOUR OWN SERVICES FILE!!!
-
-    if (!file_exists($services)) {
-      $services = Core::root_dir()."/sample-config/services.sample.ini";
-    }
-
-    // Store the config settings in the Core::Config variable
-    // the "true" means it's going to parse the headers as well.
-    Core::$Config = parse_ini_file($config, true);
-    Core::$Config["Services"] = parse_ini_file($services, true);
+    // get the current git commit, if it exists. For testing
     Core::$Config["CommitID"] = Core::get_current_git_commit();
   }
 }

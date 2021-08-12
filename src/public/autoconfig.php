@@ -13,17 +13,19 @@ $data = Core::get_get_data();
 $email_provided = false;
 $display_name = false;
 $emailaddress = false;
-if ($data["emailaddress"]) {
+if (isset($data["emailaddress"])) {
   $email_address = $data["emailaddress"];
   $display_name = $email_address;
   $email_provided = true;
 } else if ($data["path"]) {
   $query = parse_url($data["path"]);
-  $email_address = explode("=",$query["query"]);
-  if ($email_address[0] == "emailaddress") {
-    $email_address = $email[1];
-    $email_provided = true;
-    $display_name = $email_address;
+  if (isset($query["query"])){
+    $email_address = explode("=",$query["query"]);
+    if ($email_address[0] == "emailaddress") {
+      $email_address = $email_address[1];
+      $email_provided = true;
+      $display_name = $email_address;
+    }
   }
 }
 if ($email_provided) {
@@ -38,10 +40,12 @@ if ($email_provided) {
 // https://wiki.mozilla.org/Thunderbird:Autoconfiguration:ConfigFileFormat
 ?>
 <clientConfig version="1.1">
- <emailProvider id="<?php echo Core::$Config["Domain"]?>">
-   <domain><?php echo Core::$Config["Domain"]?></domain>
+ <emailProvider id="<?php echo Core::$Config["Domain"][0]?>">
+   <?php foreach (Core::$Config["Domain"] as $domain){ ?>
+   <domain><?php echo $domain; ?></domain>
+   <?php } ?>
    <displayName><?php echo $email_provided ? $display_name : "%EMAILADDRESS%" ;?></displayName>
-   <?php if($conf["InMail"]){
+   <?php if($conf["InMail"]&& $conf["InMail"]["Enabled"]){
      $in = $conf["InMail"]; ?>
      <incomingServer type="<?php echo strtolower($in["Type"]);?>">
        <hostname><?php echo $in["Server"];?></hostname>
@@ -51,7 +55,7 @@ if ($email_provided) {
        <authentication><?php echo $in["Authentication"];?></authentication>
      </incomingServer>
    <?php }
-   if($conf["OutMail"]){
+   if($conf["OutMail"]&& $conf["OutMail"]["Enabled"]){
      $out = $conf["OutMail"]; ?>
    <outgoingServer type="<?php echo strtolower($out["Type"]);?>">
      <hostname><?php echo $out["Server"];?></hostname>
@@ -61,7 +65,7 @@ if ($email_provided) {
      <authentication><?php echo $out["Authentication"];?></authentication>
    </outgoingServer>
    <?php }
-   if ($conf["AddressBook"]) {
+   if ($conf["AddressBook"] && $conf["AddressBook"]["Enabled"]) {
      $card = $conf["AddressBook"]; ?>
     <addressBook type="<?php echo strtolower($card["Type"]); ?>">
       <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
@@ -69,7 +73,7 @@ if ($email_provided) {
       <serverURL><?php echo $card["Server"];?></serverURL>
     </addressBook>
     <?php }
-    if ($conf["Calendar"]){
+    if ($conf["Calendar"] && $conf["Calendar"]["Enabled"]){
       $cal = $conf["Calendar"] ;?>
     <calendar type="<?php echo strtolower($cal["Type"]);?>">
       <username><?php echo $email_provided ? $email_address : "%EMAILADDRESS%";?></username>
@@ -77,7 +81,7 @@ if ($email_provided) {
       <serverURL><?php echo $card["Server"];?></serverURL>
     </calendar>
     <?php }
-    if ($conf["WebMail"]) {
+    if ($conf["WebMail"] && $conf["WebMail"]["Enabled"]) {
       $wm = $conf["WebMail"]; ?>
     <webMail>
       <loginPage url="<?php echo $wm["Server"];?>" />

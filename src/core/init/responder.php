@@ -73,6 +73,9 @@ class Responder {
 
     // Cycle through each service and add to payload
     foreach (Core::$Config["Services"] as $key => $service){
+      if (!$service["Enabled"]) {
+        continue;
+      }
       $response->content[$key] = $service;
     }
 
@@ -130,7 +133,7 @@ class Response {
   public $url;
   public $content_type = "json";
   public $message;
-  public $headers_set = false;
+  // public $headers_set = false;
   public $content = array();
   public function __construct(){
     // add requested page to response. I don't know why, but it could helpful for diagnostics at some point
