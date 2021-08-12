@@ -37,7 +37,7 @@ class Responder {
   private function get_response(){
     $resp = false;
     // Handle the requested URL, using as many known autoconfiguration urls as possible
-    switch (Core::$CurrentPage){
+    switch (strtolower(Core::$CurrentPage)){
       case "get/test":
         $resp = $this->dummy_response();
         break;
@@ -49,11 +49,9 @@ class Responder {
         $resp = $this->moz_auto_config();
         break;
       case "autodiscover/autodiscover.xml":
-      case "Autodiscover/Autodiscover.xml":
         $resp = $this->ms_autodiscover();
         break;
       case "autodiscover/autodiscover.json":
-      case "Autodiscover/Autodiscover.json":
         $resp = $this->ms_autodiscover_json();
         break;
       case "none":
