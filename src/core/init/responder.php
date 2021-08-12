@@ -54,6 +54,9 @@ class Responder {
       case "autodiscover/autodiscover.json":
         $resp = $this->ms_autodiscover_json();
         break;
+      case "get/config":
+        $resp = $this->get_config();
+        break;
       case "none":
       case "test":
       case "home":
@@ -65,10 +68,17 @@ class Responder {
     }
     return $resp;
   }
+  private function get_config(){
+    $response = new Response();
+    $response->message = "Here's your config...";
+    foreach (Core::$Config as $k => $v){
+      $response->content[$k] = $v;
+    }
+    return $response;
+  }
   private function get_username($service,$email_address) {
     $username = "%EMAILADDRESS%";
     if(!$service["UsernameIsFQDN"]) {
-
       preg_match("/^[^@]+/",$email_address,$matches);
       if (count($matches) > 0){
         $username = $matches[0];

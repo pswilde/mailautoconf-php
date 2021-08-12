@@ -34,7 +34,7 @@ class Init {
     // merge the default config with the custom config
     Core::$Config = array_merge($default_config,$config);
     Core::$Config["PrimaryDomain"] = Core::$Config["Domain"][0];
-    
+
     // parse the default services file for default values
     $default_services = parse_ini_file(Core::root_dir()."/default-config/services.default.ini", true);
 
@@ -47,9 +47,11 @@ class Init {
     }
 
     // merge the default config with the custom config
-    Core::$Config["Services"] = array_merge($default_services,$services);
+    // using replace recursive as the config file contains arrays itself
+    Core::$Config["Services"] = array_replace_recursive($default_services,$services);
 
     // get the current git commit, if it exists. For testing
     Core::$Config["CommitID"] = Core::get_current_git_commit();
+
   }
 }
