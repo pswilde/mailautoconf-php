@@ -65,6 +65,19 @@ class Responder {
     }
     return $resp;
   }
+  private function get_username($service,$email_address) {
+    $username = "%EMAILADDRESS%";
+    if(!$service["UsernameIsFQDN"]) {
+
+      preg_match("/^[^@]+/",$email_address,$matches);
+      if (count($matches) > 0){
+        $username = $matches[0];
+      }
+    } else if ($service["RequireLogonDomain"]) {
+      $username = preg_replace("/[^@]+$/",Core::$Config["LogonDomain"],$email_address,1);
+    }
+    return $username;
+  }
   private function all_urls(){
     $response = new Response();
     // Not really useful, unless some lovely app developers want to parse it for their app :)
