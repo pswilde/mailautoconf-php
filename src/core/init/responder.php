@@ -18,13 +18,13 @@ class Responder {
       case "json":
         header('Content-Type: application/json');
         // Send json encoded response
-        echo json_encode($response, true);
+        echo json_encode($response);
         break;
       case "ms-json":
         header('Content-Type: application/json');
         // Send json encoded response
         // This is currently an undocumented file from Microsoft so it's not ready yet
-        echo json_encode($response->content, true);
+        echo json_encode($response->content, JSON_UNESCAPED_UNICODE);
         break;
       case "xml":
         header('Content-Type: application/xml');
@@ -98,9 +98,18 @@ class Responder {
     // The new Microsoft Autodiscover.json file - undocumented
     $response = new Response();
     $response->content_type = "ms-json";
-    $response->content = new MSAutodiscoverJSONResponse();
-    $response->content->Protocol = "AutodiscoverV1";
-    $response->content->Url = Core::$Config["BaseURL"] . "/Autodiscover/Autodiscover.xml";
+    if (strtolower($_GET['Protocol']) == 'autodiscoverv1') {
+      $response->content = new MSAutodiscoverJSONResponse();
+      $response->content->Protocol = "AutodiscoverV1";
+      $response->content->Url = Core::$Config["BaseURL"] . "/Autodiscover/Autodiscover.xml";
+    } else {
+      $response->content = new MSAutodiscoverJSONError();
+      http_response_code(400);
+      $response->headers_set = true;
+      $response->content->ErrorCode = "InvalidProtocol";
+      $response->content->ErrorMessage = "The given protocol value '" . $_GET['Protocol'] . "' is invalid. Supported values are 'AutodiscoverV1'";
+    }
+
     return $response;
   }
   private function dummy_response(){
@@ -115,7 +124,7 @@ class Responder {
   private function get_test_working(){
     // Generate a dummy response for testing
     $response = new Response();
-    $response->message = "Success! Things are working! Please request a valid URL i.e. get/all";
+    $response->message = "Success! Things are working! Please request a valid URL i.e. /mail/config-v1.1.xml";
     return $response;
   }
 }
@@ -123,6 +132,7 @@ class Response {
   public $url;
   public $content_type = "json";
   public $message;
+  public $headers_set = false;
   public $content = array();
   public function __construct(){
     // add requested page to response. I don't know why, but it could helpful for diagnostics at some point
@@ -137,12 +147,17 @@ class Response {
   }
 }
 class AutoConfig {
-  public prepare_autoconfig_info(){
+  public function prepare_autoconfig_info() {
     // TODO: Move all the code in autoconfig.php into here
+    return false;
   }
 }
 class MSAutodiscoverJSONResponse {
   // More work to do - handling of MS Autodiscover.json requests
   public $Protocol;
   public $Url;
+}
+class MSAutodiscoverJSONError {
+  public $ErrorCode;
+  public $ErrorMessage;
 }
