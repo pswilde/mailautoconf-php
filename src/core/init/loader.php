@@ -28,11 +28,7 @@ class Loader {
         } else {
           Core::$CurrentPage = $p;
         }
-          require_once(Core::root_dir()."/public/respond.php");
-        // } else {
-        //   Core::$CurrentPage = "Error";
-        //   require_once(Core::RootDir()."/public/error.php");
-        // }
+        require_once(Core::root_dir()."/public/respond.php");
         break;
     }
   }
