@@ -56,6 +56,14 @@ Type                                TTL  P  M  Port Target
 SRV _autodiscover._tcp.your.domain  3600 10 10 443  autoconfig.your.domain
 ```
 
+## Compatibility  
+MailAutoConf has been tested and confirmed working with the following software packages  
+- [x] Thunderbird (v78 and probably earlier versions too)
+- [x] Evolution Mail (v3.40.3 and probably earlier versions too)
+- [x] Nextcloud Mail app
+- [ ] Other Mail Clients are likely supported if they support /mail/config-v1.1.xml
+
+ 
 
 ## Future plans
 MailAutoConf is currently in _very_ early stages, with a _very_ limited set of features.
