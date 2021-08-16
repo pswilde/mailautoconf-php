@@ -1,3 +1,5 @@
+# This Repo is UNMAINTAINED! Please use https://github.com/pswilde/mailautoconf for the latest version
+
 # MailAutoConf - a simple, configurable autodiscover/autoconfig service for distributed and self-hosted services.  
 
 ## What is MailAutoConf?
